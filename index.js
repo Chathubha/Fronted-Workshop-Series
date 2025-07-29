@@ -31,13 +31,68 @@
 
 //----------------------------------------------------------------------------------------
 
-const button = document.getElementById("btn1");
 
-const fnOnClick =() =>{
-    console.log('button clicked');
+
+//2025/07/29
+//----------------------------------------------------------------------------------------
+
+// console.log("Hello");
+
+// //acyncronous function(time consuming)
+// setTimeout(()=>{
+//     console.log("inside timeout")
+// },3000);                // (3000 ms = 3 seconds).
+
+// console.log("Ending")
+
+//----------------------------------------------------------------------------------------
+
+// const number = 10;
+
+// const result = new Promise((resolve,reject)=>{
+//     if(number == 10){
+//         resolve("Success");
+//     }
+//     else{
+//         reject("number is not 10");
+//     }
+// });
+
+// console.log(result);
+
+// result.then((data)=>{
+//     console.log(data)
+// }).catch((error1)=>{
+//     console.log(error1)
+// });
+
+// //  //promises
+
+// //  # pending,fulfilled,reject states
+// //  # .then() and .catch methods
+// //  # Promise.all() and promice.racr()
+// //  # creating custom promises
+
+// //----------------------------------------------------------------------------------------
+// //type 1
+// const response = fetch("http://universities.hipolabs.com/search?name=jaffna").then(data =>
+//     console.log(data)
+// ).catch(error=>console.log(error));
+
+// console.log(response);
+
+// //type 2
+// const response = fetch("http://universities.hipolabs.com/search?name=jaffna").then(data =>{
+//     const result = data.json()
+//     return result;
+// }).then(result=>console.log(result)).catch(error=> console.log(error));
+
+// console.log("Hallo");
+//----------------------------------------------------------------------------------------
+
+const getUniversityData =async()=>{
+   const result = await fetch("http://universities.hipolabs.com/search?name=jaffna")
+   const convertJson = await result.json();
+   console.log(convertJson);
 }
-button.addEventListener('click',fnOnClick)
-
-button.addEventListener('mouseover',()=>{
-    console.log("button click arrow function")
-})
+getUniversityData()
