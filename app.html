@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        .highlight {
+            background-color: yellow;
+            padding: 5px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        #itemList {
+            margin: 15px 0;
+        }
+        
+        .list-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+        
+        input {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="title">DOM Manipulation Demo</h1>
+        
+        <div>
+            <button onclick="changeTitle()">Change Title</button>
+            <button onclick="toggleContent()">Toggle Content</button>
+            <button onclick="highlightText()">Highlight Text</button>
+            <button onclick="addListItem()">Add Item</button>
+        </div>
+        
+        <div id="content">
+            <p id="demo-text">This is some demo text that can be manipulated.</p>
+            <p>Try clicking the buttons above to see DOM manipulation in action!</p>
+        </div>
+        
+        <div>
+            <input type="text" id="newItem" placeholder="Enter new item">
+            <button onclick="addCustomItem()">Add Custom Item</button>
+        </div>
+        
+        <ul id="itemList">
+            <li class="list-item">Original Item 1</li>
+            <li class="list-item">Original Item 2</li>
+        </ul>
+        
+        <div>
+            <button onclick="removeLastItem()">Remove Last Item</button>
+            <button onclick="changeStyles()">Change Styles</button>
+        </div>
+    </div>
+
+    <script>
+        // 1. Changing text content
+        function changeTitle() {
+            const title = document.getElementById('title');
+            title.textContent = 'Title Changed!';
+            title.style.color = '#28a745';
+        }
+        
+        // 2. Toggle visibility
+        function toggleContent() {
+            const content = document.getElementById('content');
+            content.classList.toggle('hidden');
+        }
+        
+        // 3. Adding/removing CSS classes
+        function highlightText() {
+            const text = document.getElementById('demo-text');
+            text.classList.toggle('highlight');
+        }
+        
+        // 4. Creating and adding new elements
+        function addListItem() {
+            const list = document.getElementById('itemList');
+            const newItem = document.createElement('li');
+            newItem.className = 'list-item';
+            newItem.textContent = `New Item ${list.children.length + 1}`;
+            list.appendChild(newItem);
+        }
+        
+        // 5. Getting input values and creating elements
+        function addCustomItem() {
+            const input = document.getElementById('newItem');
+            const text = input.value.trim();
+            
+            if (text) {
+                const list = document.getElementById('itemList');
+                const newItem = document.createElement('li');
+                newItem.className = 'list-item';
+                newItem.textContent = text;
+                list.appendChild(newItem);
+                input.value = ''; // Clear input
+            }
+        }
+        
+        // 6. Removing elements
+        function removeLastItem() {
+            const list = document.getElementById('itemList');
+            if (list.children.length > 0) {
+                list.removeChild(list.lastElementChild);
+            }
+        }
+        
+        // 7. Changing multiple styles
+        function changeStyles() {
+            const container = document.querySelector('.container');
+            container.style.backgroundColor = '#e3f2fd';
+            container.style.border = '2px solid #2196f3';
+            container.style.transform = 'scale(1.02)';
+            container.style.transition = 'all 0.3s ease';
+        }
+        
+        // 8. Event listener example (runs when page loads)
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM is fully loaded!');
+            
+            // Add click event to all list items
+            const listItems = document.querySelectorAll('.list-item');
+            listItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.style.backgroundColor = '#ffc107';
+                    setTimeout(() => {
+                        this.style.backgroundColor = '#f8f9fa';
+                    }, 1000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
